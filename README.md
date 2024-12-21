@@ -112,7 +112,20 @@ options:
 
 ---
 
-## Details of the Process:
+## Here's the video by which I found out about this: 
+### [How To Make A Legit Sound Camera by @BennJordan](https://www.youtube.com/watch?v=c5ynZ3lMQJc) <br><br>
 
-### Here's the video by which I found out about this: 
-#### [How To Make A Legit Sound Camera by @BennJordan](https://www.youtube.com/watch?v=c5ynZ3lMQJc)
+---
+
+## Modules and scripts used:
+- [**tqdm**](https://pypi.org/project/tqdm/) for progress bars
+- [**PIL/Pillow**](https://pypi.org/project/pillow/) for easy image transformation
+- [**blend-modes**](https://pypi.org/project/blend-modes/) for the difference blend
+- [**opencv-python**](https://pypi.org/project/opencv-python/) for simpler video transformation, reading, writing and denoising
+- [**numpy**](https://pypi.org/project/numpy/) for converting Pillow images to cv2 arrays and vice-versa
+- [**pycuda**](https://pypi.org/project/pycuda/) for running GPU-accelerated denoising
+- [**torch**](https://pypi.org/project/torch/) just for checking of user has GPU or not
+- [**PyCuda_Denoise_Filters**](https://github.com/AlainPaillou/PyCuda_Denoise_Filters) for GPU denoising
+  - Both of the `Mono` scripts were used in my project and were modified to fit the use-case
+<br>
+<br>
