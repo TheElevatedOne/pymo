@@ -1,4 +1,5 @@
 import argparse
+import multiprocessing
 import sys
 from differ.differ import Difference
 
@@ -17,15 +18,20 @@ def parse() -> argparse.Namespace:
    Python Motion Visualizer CLI""", formatter_class=argparse.RawTextHelpFormatter)
 
     parser.add_argument("-i", "--input", required=True, help="""Relative path to the Input Video""", type=str)
-    parser.add_argument("-o", "--output", required=False, help="(Optional) Absolute path to output directory", type=str)
+    parser.add_argument("-o", "--output", required=False, help="(Optional) Absolute path to output directory", type=str,
+                        metavar="PATH")
     parser.add_argument("-n", "--name", required=False, help="(Optional) Custom Filename for the video", type=str)
-    parser.add_argument("-f", "--offset", required=False, default=5, help="(Optional) Number of Offset Frames [Default = 5]", type=int)
-    parser.add_argument("-t", "--threads", required=False, default=2, help="(Optional) Amount of threads to run the process on [Default = 2]", type=int)
+    parser.add_argument("-f", "--offset", required=False, default=5, help="(Optional) Number of Offset Frames [Default = 5]",
+                        type=int, choices=range(1, 50), metavar="INT[1, 50]")
+    parser.add_argument("-t", "--threads", required=False, default=2, help="(Optional) Amount of threads to run the process on [Default = 2]",
+                        type=int, choices=range(1, multiprocessing.cpu_count()), metavar="CPU[1, %d]" % multiprocessing.cpu_count())
+    parser.add_argument("-m", "--model", required=False, default="knn",
+                        help="(Optional) Model to use when denoising via GPU [Default = knn]",
+                        choices=["knn", "nlm"])
     parser.add_argument("-s", "--slow_motion", required=False, default=False, help="""(Optional) Sets the FPS of the Output Video to half the original;
-Essentially creating a slow-motion of the original without interpolation""", action="store_true")
+           Essentially creating a slow-motion of the original without interpolation""", action="store_true")
     parser.add_argument("-c", "--cpu", required=False, default=False, help="""(Optional) Denoising step by default runs on CUDA Acceleration (if Nvidia GPU Available);
-Setting this makes it run on CPU even if GPU is Available""", action="store_true")
-    parser.add_argument("-m", "--model", required=False, default="knn", help="(Optional) Model to use when denoising via GPU [Default = knn] [Options: nlm, knn]")
+           Setting this makes it run on CPU even if GPU is Available""", action="store_true")
 
     if len(sys.argv) == 1:
         parser.print_help(sys.stderr)

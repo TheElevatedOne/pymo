@@ -43,32 +43,28 @@ class Difference:
         spacer = f"%0{len(str(length))}d.png"
 
         # bottom
-        print("    01. Preparing First Layer")
+        print("    01. Preparing Frames")
         os.mkdir(os.path.join(self.tdir, "bottom"))
+        os.mkdir(os.path.join(self.tdir, "top"))
 
         for i in tqdm(range(length), desc="        Exporting Frames"):
             s, img = video.read()
             cv2.imwrite(os.path.join(self.tdir, "bottom", spacer % i), img)
 
-        FrameGen(wv, wh, self.offset, os.path.join(self.tdir, "bottom"), length, spacer)
+        frames = os.listdir(os.path.join(self.tdir, "bottom"))
+        frames.sort()
 
-        video.release()
-
-        # top
-        print("    02. Preparing Second Layer")
-        os.mkdir(os.path.join(self.tdir, "top"))
-        video = cv2.VideoCapture(self.inp)
-
-        for i in tqdm(range(length), desc="        Exporting Frames"):
-            s, img = video.read()
-            cv2.imwrite(os.path.join(self.tdir, "top", spacer % i), img)
-
-        video.release()
+        for i in tqdm(frames, desc="        Copying Frames"):
+            shutil.copyfile(os.path.join(self.tdir, "bottom", i), os.path.join(self.tdir, "top", i))
 
         for i in tqdm(range(length - 1, -1, -1), desc="        Creating Space For Offset Frames"):
             os.rename(os.path.join(self.tdir, "top", spacer % i), os.path.join(self.tdir, "top", spacer % (i + self.offset)))
 
-        FrameGen(wv, wh, self.offset, os.path.join(self.tdir, "top"), 0, spacer)
+        FrameGen(wv, wh, self.offset, os.path.join(self.tdir, "bottom"), length, spacer, 1)
+
+        FrameGen(wv, wh, self.offset, os.path.join(self.tdir, "top"), 0, spacer, 2)
+
+        video.release()
 
     def dif_frames(self) -> None:
         os.mkdir(os.path.join(self.tdir, "diff"))
@@ -118,7 +114,7 @@ class Difference:
             if queue.get() == 0:
                 filter_prog.update()
 
-        filter_prog.update()
+        filter_prog.close()
 
         # filter_prog.disable = True
 
