@@ -11,7 +11,7 @@
 
 ---
 
-## Preview
+## Preview:
 
 <details>
      <summary>test_01</summary>
@@ -109,3 +109,10 @@ options:
 - `-c/--cpu` The program uses [PyCuda](https://pypi.org/project/pycuda/) for GPU Acceleration on Denoising by default (unless it does not detect a GPU)
   - This forces the Program to use the CPU, which results in higher quality render, but with a long render time.
 - `-m/--model` GPU Denoising Model switcher, both are good for some things
+
+---
+
+## Details of the Process:
+
+### Here's the video by which I found out about this: 
+#### [How To Make A Legit Sound Camera by @BennJordan](https://www.youtube.com/watch?v=c5ynZ3lMQJc)
