@@ -25,7 +25,7 @@ def parse() -> argparse.Namespace:
 Essentially creating a slow-motion of the original without interpolation""", action="store_true")
     parser.add_argument("-c", "--cpu", required=False, default=False, help="""(Optional) Denoising step by default runs on CUDA Acceleration (if Nvidia GPU Available);
 Setting this makes it run on CPU even if GPU is Available""", action="store_true")
-    parser.add_argument("-m", "--model", required=False, default="nlm", help="(Optional) Model to use when denoising via GPU [Default = nlm] [Options: nlm, knn]")
+    parser.add_argument("-m", "--model", required=False, default="knn", help="(Optional) Model to use when denoising via GPU [Default = knn] [Options: nlm, knn]")
 
     if len(sys.argv) == 1:
         parser.print_help(sys.stderr)

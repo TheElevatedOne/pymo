@@ -201,10 +201,10 @@ int imageW, int imageH, float Noise, float lerpC)
         self.model = model
 
     def run(self):
-        if self.model == "knn":
-            mono_gpu = self.knn.get_function("KNN_Mono")
-        else:
+        if self.model == "nlm":
             mono_gpu = self.nlm2.get_function("NLM2_Mono")
+        else:
+            mono_gpu = self.knn.get_function("KNN_Mono")
 
         wv, wh = self.img.shape
 
@@ -213,9 +213,9 @@ int imageW, int imageH, float Noise, float lerpC)
         nb_blocks_x = (wv // nb_threads_x) + 1
         nb_blocks_y = (wh // nb_threads_y) + 1
 
-        gpu_noise = 1.45
-        if self.model == "knn":
-            gpu_noise = 0.32
+        gpu_noise = 0.32
+        if self.model == "nlm":
+            gpu_noise = 1.45
         noise = 1.0 / (gpu_noise * gpu_noise)
         lerpc = 0.2
 
