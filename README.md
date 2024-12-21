@@ -87,7 +87,7 @@ options:
   -c, --cpu             (Optional) Denoising step by default runs on CUDA Acceleration (if Nvidia GPU Available)
                         Setting this makes it run on CPU even if GPU is Available
   -m MODEL, --model MODEL
-                        (Optional) Model to use when denoising via GPU [Default = nlm] [Options: nlm, knn]
+                        (Optional) Model to use when denoising via GPU [Default = knn] [Options: nlm, knn]
 ```
 
 ### Detailed info on arguments:
