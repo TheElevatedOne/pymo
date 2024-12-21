@@ -12,6 +12,7 @@
 ---
 
 ## Preview
+<video width="320" height="170" controls><source src="https://github.com/TheElevatedOne/pymo/raw/refs/heads/main/test_01.mp4" type="video/mp4"></video>
 
 ---
 
