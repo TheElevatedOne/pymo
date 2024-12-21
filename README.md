@@ -12,7 +12,30 @@
 ---
 
 ## Preview
-![test_01](https://github.com/TheElevatedOne/pymo/raw/refs/heads/main/test_01.mp4)
+
+<details>
+     <summary>test_01</summary>
+     <video src="https://github.com/user-attachments/assets/fb343f2b-77e3-499a-925a-2cc816e2bcc5"></video>
+     <hr>
+     <h3>KNN PyCUDA</h3>
+     <video src="https://github.com/user-attachments/assets/865683c9-b03c-43d7-a301-5b31e13161e5"></video>
+     <h3>NLM2 PyCUDA</h3>
+     <video src="https://github.com/user-attachments/assets/ff525d74-a4f6-42ed-8bda-7c2b3789256d"></video>
+     <h3>CPU</h3>
+     <video src="https://github.com/user-attachments/assets/39a1633f-248f-41e4-bab0-532e9125a24e"></video>
+</details>
+
+<details>
+     <summary>test_02</summary>
+     <video src="https://github.com/user-attachments/assets/104d2347-27bf-44f2-8418-94abc265527b"></video>
+     <hr>
+     <h3>KNN PyCUDA</h3>
+     <video src="https://github.com/user-attachments/assets/a3b082ca-35d3-4b3d-8593-68edb36dd65e"></video>
+     <h3>NLM2 PyCUDA</h3>
+     <video src="https://github.com/user-attachments/assets/72ddcabe-0c50-4719-8c85-0aa36803ba5c"></video>
+     <h3>CPU</h3>
+     <video src="https://github.com/user-attachments/assets/deeb1c6f-94c2-46e4-8f69-f4a36ed08653"></video>
+</details>
 
 ---
 
