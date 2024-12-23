@@ -1,7 +1,8 @@
-blend_modes==2.2.0
-numpy==2.2.0
-opencv-python==4.10.0.84
-pillow==11.0.0
-pycuda==2024.1.2
-torch==2.5.1
-tqdm==4.67.1
+numpy>=2.2.0
+opencv-python>=4.10.0.84
+pillow>=11.0.0
+pycuda>=2024.1.2
+torch>=2.5.1
+tqdm>=4.67.1
+imageio>=2.36.1
+nuitka>=2.5.8

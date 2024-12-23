@@ -1,7 +1,7 @@
 import argparse
 import multiprocessing
 import sys
-from differ.differ import Difference
+from src.differ import Difference
 
 
 def parse() -> argparse.Namespace:
