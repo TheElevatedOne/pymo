@@ -1,11 +1,3 @@
-     _____       __  __       
-    |  __ \     |  \/  |      
-    | |__) |   _| \  / | ___  
-    |  ___/ | | | |\/| |/ _ \ 
-    | |   | |_| | |  | | (_) |
-    |_|    \__, |_|  |_|\___/ 
-            __/ |             
-           |___/
 # PyMo (Python Motion Visualizer GUI)
 ### A CLI script for visualizing differences between video frames, eg. motion.
 
@@ -41,24 +33,24 @@
 
 ## Requirements:
 - Python 3.10 or newer
-- Nvidia GPU with installed drivers (Optional but Recommended)
+- Nvidia GPU
+  - Minimum: GTX 1650 4GB
+  - Recommended: RTX 4060 8GB
 - At least 16GB of RAM
 
 ---
 
 ## Installation:
 ```bash
-git clone https://github.com/TheElevatedOne/pymo.git && cd pymo
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
+git clone -b 1.0.0 https://github.com/TheElevatedOne/pymo.git && cd pymo
+./install-venv.sh
 ```
 
 ---
 
 ## Running:
 ```
-usage: main.py [-h] -i INPUT [-o OUTPUT] [-n NAME] [-f OFFSET] [-t THREADS] [-s] [-c] [-m MODEL]
+usage: pymo [-h] -i INPUT [-o PATH] [-n NAME] [-f INT[1, 50]] [-t CPU[1, 8]] [-s] [-c] [-m {knn,nlm,sr}] [-sr {Directory Empty!}]
 
      _____       __  __       
     |  __ \     |  \/  |      
@@ -68,30 +60,47 @@ usage: main.py [-h] -i INPUT [-o OUTPUT] [-n NAME] [-f OFFSET] [-t THREADS] [-s]
     |_|    \__, |_|  |_|\___/ 
             __/ |             
            |___/              
-           
+
    Python Motion Visualizer CLI
 
 options:
   -h, --help            show this help message and exit
+
+Required:
+  Required Arguments
+
   -i INPUT, --input INPUT
                         Relative path to the Input Video
-  -o OUTPUT, --output OUTPUT
+
+Optional:
+  Optional Arguments
+
+  -o PATH, --output PATH
                         (Optional) Absolute path to output directory
   -n NAME, --name NAME  (Optional) Custom Filename for the video
-  -f OFFSET, --offset OFFSET
+  -f INT[1, 50], --offset INT[1, 50]
                         (Optional) Number of Offset Frames [Default = 5]
-  -t THREADS, --threads THREADS
+  -t CPU[1, 8], --threads CPU[1, 8]
                         (Optional) Amount of threads to run the process on [Default = 2]
   -s, --slow_motion     (Optional) Sets the FPS of the Output Video to half the original;
-                        Essentially creating a slow-motion of the original without interpolation
-  -c, --cpu             (Optional) Denoising step by default runs on CUDA Acceleration (if Nvidia GPU Available)
-                        Setting this makes it run on CPU even if GPU is Available
-  -m MODEL, --model MODEL
-                        (Optional) Model to use when denoising via GPU [Default = knn] [Options: nlm, knn]
+                                   Essentially creating a slow-motion of the original without interpolation
+
+Denoising:
+  Denoising Arguments
+
+  -c, --cpu             (Optional) Denoising step by default runs on CUDA Acceleration (if Nvidia GPU Available);
+                                   Setting this makes it run on CPU even if GPU is Available
+  -m {knn,nlm,sr}, --model {knn,nlm,sr}
+                        (Optional) Model to use when denoising via GPU [Default = knn];
+                                   SR - Super Resolution (ESRGAN, SwinIR, ...), 
+                                   Needs a PyTorch weight file (.pth) in ./weights/ to be active.
+  -sr {Directory Empty!}, --super_resolution {Directory Empty!}
+                        (Optional) Choosing Weights for SR (if available)
+                                   [Default = Directory Empty!]
+
 ```
 
-### Detailed info on arguments:
-- `-i/--input [FILE]` A Video File with OpenCV2 supported extensions
+### Detailed info on some arguments:
 - `-o/--output [PATH]` An absolute path to a directory, e.g. on Linux `/home/${whoami}/directory`
   - If left empty, it will default to Input Video Dir
 - `-n/--name [NAME]` Custom name for the output video, without extension. Default is `pymo_{input-vid-name}`
@@ -108,7 +117,33 @@ options:
   - ex. 60 fps Video -> 30 fps Video but Twice the length
 - `-c/--cpu` The program uses [PyCuda](https://pypi.org/project/pycuda/) for GPU Acceleration on Denoising by default (unless it does not detect a GPU)
   - This forces the Program to use the CPU, which results in higher quality render, but with a long render time.
-- `-m/--model` GPU Denoising Model switcher, both are good for some things
+- `-m/--model` GPU Denoising Model switcher.
+  - KNN/NLM2 are good for some things, they are fast but sacrifice quality.
+  - SR (Super Resolution) models (or weights) are slower than the above, but faster than CPU and have amazing quality.
+    - They are trained weights on datasets (AI), which can do many things. I mainly use them to Denoise.
+    - They need fast GPU's to run and a lot of VRAM. This may be the choice for someone with a good GPU.
+    - Weights are not packaged with the program, Download them [here](./weights/README.md).
+
+---
+
+## Optimization:
+As I develop this project, I try to optimize any algorithm I use after I got it working.<br>
+With that, I just make 80% improvement on the Motion Generation (Difference Blend) and 50% improvement on CPU denoising.
+
+Current Times (On My Machine):
+- Specs:
+  - CPU - Intel i5-9300H
+  - GPU - Nvidia GTX 1650 Mobile
+- Times (for Compute Intesive Tasks) [using test_01.mp4 | 4K, 210 Frames]:
+  - Exporting Frames of the Video - 44s
+  - Motion Generation - 1m 11s
+  - Contrast Filter - 27s
+  - Denoising:
+    - CPU - 6m 2s
+    - KNN - 44s
+    - NLM2 - 54s
+    - SR (1x-WB-Denoise.pth) - 6m 52s
+  - Encoding Video - 17s
 
 ---
 
@@ -120,12 +155,15 @@ options:
 ## Modules and scripts used:
 - [**tqdm**](https://pypi.org/project/tqdm/) for progress bars
 - [**PIL/Pillow**](https://pypi.org/project/pillow/) for easy image transformation
-- [**blend-modes**](https://pypi.org/project/blend-modes/) for the difference blend
 - [**opencv-python**](https://pypi.org/project/opencv-python/) for simpler video transformation, reading, writing and denoising
-- [**numpy**](https://pypi.org/project/numpy/) for converting Pillow images to cv2 arrays and vice-versa
-- [**pycuda**](https://pypi.org/project/pycuda/) for running GPU-accelerated denoising
-- [**torch**](https://pypi.org/project/torch/) just for checking of user has GPU or not
+- [**imageio**](https://pypi.org/project/imageio/) for reading and writing images
+- [**numpy**](https://pypi.org/project/numpy/) for converting Pillow images to cv2 arrays and vice versa
+- [**pycuda**](https://pypi.org/project/pycuda/) for running GPU-accelerated Denoising
+- [**torch**](https://pypi.org/project/torch/) for running GPU Super Resolution Models for Denoising
+- [**torchvision**](https://pypi.org/project/torchvision/) for converting numpy arrays into tensors and vice versa
+- [**spandrel**](https://pypi.org/project/spandrel/) project of chaiNNer developer, for reading all types of SR weights
 - [**PyCuda_Denoise_Filters**](https://github.com/AlainPaillou/PyCuda_Denoise_Filters) for GPU denoising
   - Both of the `Mono` scripts were used in my project and were modified to fit the use-case
+- [**Nuitka**](https://pypi.org/project/Nuitka/) for compiling `main.py` into a binary for easier running and adding to `$PATH`
 <br>
 <br>

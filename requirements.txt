@@ -5,4 +5,6 @@ pycuda>=2024.1.2
 torch>=2.5.1
 tqdm>=4.67.1
 imageio>=2.36.1
+torchvision>=0.8.0
+spandrel>=0.4.0
 nuitka>=2.5.8

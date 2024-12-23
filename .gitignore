@@ -2,5 +2,4 @@ venv
 main.build
 dist
 test
-1x-WB-Denoise.pth
 test.py

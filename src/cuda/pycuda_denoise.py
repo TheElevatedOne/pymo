@@ -9,7 +9,7 @@ class PyCudaDenoise:
     Based on KNN filter CUDA program provided by Nvidia - CUDA SDK samples
     Alain PAILLOU - August 2019
     TheElevatedOne - December 2024 - Modified for this CLI Program"""
-    def __init__(self, img: cv2.Mat, model: str):
+    def __init__(self, img: cv2.Mat, model: str) -> None:
         drv.init()
         device = drv.Device(0)
         self.ctx = device.make_context()
@@ -200,7 +200,7 @@ int imageW, int imageH, float Noise, float lerpC)
 """)
         self.model = model
 
-    def run(self):
+    def run(self) -> np.ndarray:
         if self.model == "nlm":
             mono_gpu = self.nlm2.get_function("NLM2_Mono")
         else:
