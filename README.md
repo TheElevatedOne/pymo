@@ -42,7 +42,7 @@
 
 ## Installation:
 ```bash
-git clone -b 1.0.0 https://github.com/TheElevatedOne/pymo.git && cd pymo
+git clone -b 1.1.0 https://github.com/TheElevatedOne/pymo.git && cd pymo
 ./install-venv.sh
 ```
 
