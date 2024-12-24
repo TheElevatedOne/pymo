@@ -1,7 +1,7 @@
-<h1 style="text-align: center">PyMo (Python Motion Visualizer GUI)</h1>
-
-### A CLI script for visualizing differences between video frames, eg. motion.
-<img src="logo.svg" width="50%" style="margin-left: 25%">
+<h1 align="center">PyMo (Python Motion Visualizer GUI)</h1>
+<h4 align="center">A CLI script for visualizing differences between video frames, eg. motion.</h4>
+<br>
+<p align="center"><img src="logo.svg" width="40%"></p>
 
 ---
 
