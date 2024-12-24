@@ -1,7 +1,16 @@
-<h1 align="center">PyMo (Python Motion Visualizer GUI)</h1>
+<h1 align="center">PyMo (Python Motion Visualizer GUI)</h1> 
+
+[![latest-release](https://img.shields.io/github/v/release/TheElevatedOne/pymo?style=for-the-badge)](https://github.com/TheElevatedOne/pymo/releases/latest)
+![commits](https://img.shields.io/github/commits-since/TheElevatedOne/pymo/latest?style=for-the-badge)
+[![license](https://img.shields.io/github/license/TheElevatedOne/pymo?style=for-the-badge)](https://github.com/TheElevatedOne/pymo/blob/main/LICENSE)
+![repo-size](https://img.shields.io/github/repo-size/TheElevatedOne/pymo?style=for-the-badge)
+![python](https://img.shields.io/github/pipenv/locked/python-version/TheElevatedOne/pymo?style=for-the-badge)
+
 <h4 align="center">A CLI script for visualizing differences between video frames, eg. motion.</h4>
 <br>
 <p align="center"><img src="logo.svg" width="40%"></p>
+
+[![kofi](https://img.shields.io/badge/Support%20Me-FF6433?style=for-the-badge&logo=kofi&logoColor=%23FF6433&label=Ko-Fi)](http://ko-fi.elevated.ovh/)
 
 ---
 
@@ -34,7 +43,7 @@
 ---
 
 ## Requirements:
-- Python 3.10 or newer
+- Python 3.10
 - Nvidia GPU
   - Minimum: GTX 1650 4GB
   - Recommended: RTX 4060 8GB
