@@ -5,12 +5,11 @@
 [![license](https://img.shields.io/github/license/TheElevatedOne/pymo?style=for-the-badge)](https://github.com/TheElevatedOne/pymo/blob/main/LICENSE)
 ![repo-size](https://img.shields.io/github/repo-size/TheElevatedOne/pymo?style=for-the-badge)
 ![python](https://img.shields.io/github/pipenv/locked/python-version/TheElevatedOne/pymo?style=for-the-badge)
+[![kofi](https://img.shields.io/badge/Support%20Me-FF6433?style=for-the-badge&logo=kofi&logoColor=%23FF6433&label=Ko-Fi)](http://ko-fi.elevated.ovh/)
 
 <h4 align="center">A CLI script for visualizing differences between video frames, eg. motion.</h4>
 <br>
 <p align="center"><img src="logo.svg" width="40%"></p>
-
-[![kofi](https://img.shields.io/badge/Support%20Me-FF6433?style=for-the-badge&logo=kofi&logoColor=%23FF6433&label=Ko-Fi)](http://ko-fi.elevated.ovh/)
 
 ---
 
