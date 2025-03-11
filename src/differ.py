@@ -28,8 +28,10 @@ class Difference:
     sr (str)          | If "sr" set in GPU Model,
                       | Enables Super-Resolution AI Models;
                       | This argument specifies the model.
+    nuitka (bool)     | Checks for compilation with Nuitka,
+                      | and adjusts tempdir location accordingly.
     """
-    def __init__(self, input_path: str, output_path: str, name: str, offset: int, threads: int, slomo: bool, cpu: bool, model: str, sr: str) -> None:
+    def __init__(self, input_path: str, output_path: str, name: str, offset: int, threads: int, slomo: bool, cpu: bool, model: str, sr: str, nuitka: bool) -> None:
         self.inp = os.path.abspath(input_path)
         self.oup = os.path.dirname(os.path.abspath(input_path))
         if output_path is not None: self.oup = os.path.abspath(output_path)
@@ -39,7 +41,11 @@ class Difference:
 
         self.offset = offset
         self.pydir = os.path.dirname(__file__)
-        self.tdir = os.path.join(self.pydir, "temp")
+
+        if nuitka:
+            self.tdir = os.path.join(os.path.dirname(self.pydir), "temp")
+        else:
+            self.tdir = os.path.join(self.pydir, "temp")
 
         self.threads = threads
         self.slomo = slomo

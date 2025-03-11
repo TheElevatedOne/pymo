@@ -22,6 +22,14 @@ def parse() -> argparse.Namespace:
     if not len(sr_models):
         sr_models.append("Directory Empty!")
 
+    # Nuitka Compiled Info
+    if "__compiled__" in globals():
+        c = globals()["__compiled__"]
+        __nuitka__ = f"\n\n   Compiled with Nuitka v{c.major}.{c.minor}.{c.micro}"
+    else:
+        __nuitka__ = ""
+
+
     parser = argparse.ArgumentParser(description="    " + termcolor.colored(" _____       ", "light_blue", attrs=["bold"]) + termcolor.colored("__  __       ", "light_green", attrs=["bold"]) + "\n" + \
     "    " + termcolor.colored("|  __ \     ", "light_blue", attrs=["bold"]) + termcolor.colored("|  \/  |      ", "light_green", attrs=["bold"]) + "\n" + \
     "    " + termcolor.colored("| |__) |   _", "light_blue", attrs=["bold"]) + termcolor.colored("| \  / | ___  ", "light_green", attrs=["bold"]) + "\n" + \
@@ -31,7 +39,7 @@ def parse() -> argparse.Namespace:
     "    " + termcolor.colored("        __/ |", "light_blue", attrs=["bold"]) + termcolor.colored("             ", "light_green", attrs=["bold"]) + "\n" + \
     "    " + termcolor.colored("       |___/ ", "light_blue", attrs=["bold"]) + termcolor.colored("             ", "light_green", attrs=["bold"]) + "\n\n" + \
     "   " + termcolor.colored("Python ", "light_blue", attrs=["bold"])  + termcolor.colored("Motion ", "light_green", attrs=["bold"]) + \
-    termcolor.colored("Visualizer CLI", "white", attrs=["bold"]), formatter_class=argparse.RawTextHelpFormatter)
+    termcolor.colored("Visualizer CLI", "white", attrs=["bold"]) + __nuitka__, formatter_class=argparse.RawTextHelpFormatter)
 
     required = parser.add_argument_group("Required", "Required Arguments")
     optional = parser.add_argument_group("Optional", "Optional Arguments")
@@ -73,6 +81,15 @@ def parse() -> argparse.Namespace:
 
 def main() -> None:
     args = parse() # Parse CLI Arguments
+
+    if "__compiled__" in globals():
+        nuitka = True
+        c = globals()["__compiled__"]
+        __nuitka__ = f"\n\n   Compiled with Nuitka v{c.major}.{c.minor}.{c.micro}"
+    else:
+        nuitka = False
+        __nuitka__ = ""
+
     print("    " + termcolor.colored(" _____       ", "light_blue", attrs=["bold"]) + termcolor.colored("__  __       ", "light_green", attrs=["bold"]) + "\n" + \
     "    " + termcolor.colored("|  __ \     ", "light_blue", attrs=["bold"]) + termcolor.colored("|  \/  |      ", "light_green", attrs=["bold"]) + "\n" + \
     "    " + termcolor.colored("| |__) |   _", "light_blue", attrs=["bold"]) + termcolor.colored("| \  / | ___  ", "light_green", attrs=["bold"]) + "\n" + \
@@ -82,10 +99,10 @@ def main() -> None:
     "    " + termcolor.colored("        __/ |", "light_blue", attrs=["bold"]) + termcolor.colored("             ", "light_green", attrs=["bold"]) + "\n" + \
     "    " + termcolor.colored("       |___/ ", "light_blue", attrs=["bold"]) + termcolor.colored("             ", "light_green", attrs=["bold"]) + "\n\n" + \
     "   " + termcolor.colored("Python ", "light_blue", attrs=["bold"])  + termcolor.colored("Motion ", "light_green", attrs=["bold"]) + \
-    termcolor.colored("Visualizer CLI", "white", attrs=["bold"]) + "\n")
+    termcolor.colored("Visualizer CLI", "white", attrs=["bold"]) + __nuitka__ + "\n")
     print("Initializing")
     di = Difference(args.input, args.output, args.name, args.offset, args.threads,
-                    args.slow_motion, args.cpu, args.model, args.super_resolution) # Initialize imported module
+                    args.slow_motion, args.cpu, args.model, args.super_resolution, nuitka) # Initialize imported module
     print("Creating Temporary Files Directory")
     print("----------------------------------")
     try:
