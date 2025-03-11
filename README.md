@@ -9,7 +9,7 @@
 
 <h4 align="center">A CLI script for visualizing differences between video frames, eg. motion.</h4>
 <br>
-<p align="center"><img src="logo.svg" width="40%"></p>
+<p align="center"><img src="assets/logo.svg" width="40%"></p>
 
 ---
 
